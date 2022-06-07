@@ -1,0 +1,65 @@
+﻿@using u21512338_HW03.Models
+@model List<FileModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Video Files</h2>
+<h4>..."Media/Video/" folder</h4>
+
+<head>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.mousewheel-3.0.6.pack.js"></script>
+    <script src="~/Scripts/jquery.fancybox.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.fancybox.css" media="screen">
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.fancybox.pack.js"></script>
+</head>
+
+<div style="height: auto; overflow: auto; background-color: lightgray">
+    <div class="well-sm">
+        @*iterate through files in model and display relevant videos*@
+        @foreach (FileModel videos in Model)
+        {
+            <div class="col-lg-4 col-md-6"> @*3 videos per row on large screen*@
+                <br />
+                <div>
+                    <a class="fancybox" href="@Url.Content(videos.Vid)"> @*fancybox*@
+                        <video width="270" height="170" controls>
+                            <source src="@Url.Content(videos.Vid)" type="video/mp4">
+                        </video>
+                    </a>
+                </div>
+                <div>@videos.FileName</div>
+                <div>
+                    <button class="btn btn-success">
+                        @Html.ActionLink("Download", "DownloadFile",
+                        new { fileName = videos.FileName },
+                        new { @style = "color:white;" })
+                    </button>
+                    <button class="btn btn-danger">
+                        @Html.ActionLink("DELETE", "DeleteFile",
+                        new { fileName = videos.FileName },
+                        new { @style = "color:white;" })
+                    </button>
+
+                </div>
+                <br />
+            </div>
+
+        }
+
+    </div>
+</div>
+
+<script>
+    /*fancybox script*/
+    $(document).ready(function ($) {
+        $(".fancybox").fancybox({
+            width: 800,
+            height: 600,
+            type: 'iframe'
+        });
+    });
+</script>

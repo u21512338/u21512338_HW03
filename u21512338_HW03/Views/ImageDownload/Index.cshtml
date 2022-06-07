@@ -1,0 +1,61 @@
+﻿@using u21512338_HW03.Models
+@model List<FileModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Images Files</h2>
+<h4>..."Media/Images/" folder</h4>
+
+<head>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.mousewheel-3.0.6.pack.js"></script>
+    <script src="~/Scripts/jquery.fancybox.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.fancybox.css" media="screen">
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.fancybox.pack.js"></script>
+</head>
+
+<div style="height: auto; overflow: auto; background-color: lightgray">
+    <div class="well-sm">
+        @*iterate through files in model and display relevant images*@
+        @foreach (FileModel images in Model)
+        {
+            <div class="col-lg-4 col-md-6"> @*3 images per row on large screen*@
+                <br />
+                <div>
+                    <a href="@Url.Content(images.Image)" class="fancybox-image"> @*fancybox*@
+                        <img src="@Url.Content(images.Image)" alt="uploadImage" style="height:170px;width:270px;" />
+                    </a>
+                </div>
+                <div>@images.FileName</div>
+                <div>
+                    <button class="btn btn-success">
+                        @Html.ActionLink("Download", "DownloadFile",
+                         new { fileName = images.FileName },
+                         new { @style = "color:white;" })
+                    </button>
+                    <button class="btn btn-danger">
+                        @Html.ActionLink("DELETE", "DeleteFile",
+                         new { fileName = images.FileName },
+                         new { @style = "color:white;" })
+                    </button>
+
+                </div>
+                <br />
+            </div>
+
+        }
+
+    </div>
+</div>
+
+
+<script>
+    /*fancybox script*/
+    $(document).ready(function ($) {
+        $(".fancybox-image").fancybox();
+    });
+</script>
+

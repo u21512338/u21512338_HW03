@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>myMedia</h2>
+<h4>Select File to be uploaded</h4>
+
+<div style="height: auto; overflow: auto; background-color: lightgray">
+    <div class="well-sm">
+        <div class="col-lg-8">
+            <div>
+                <h3>Description</h3>
+            </div>
+            <div>
+                <p>This system allows a user to upload any document type to the relevant headings. Images should only be in image format, likewise videos should be in video format. Documents can be of any type. The best part is - everything you upload remains in the system files and ready to use next time! Any file uploaded can be downloaded again or deleted permanently. There is an about me page that gives a brief overview of the system builder. Take your time to explore and enjoy our system. Thank you!</p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div>
+                <h3>Options Selection</h3>
+            </div>
+            <div class="well-sm">
+                <div class="form-horizontal">
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+                        // an encoding type that allows files to be sent through a POST.
+                    {
+                        <div>
+                            <input type="radio" value="Document" id="Type" name="Type" checked="checked" /> Document<br />
+                            <input type="radio" value="Image" id="Type" name="Type" /> Image<br />
+                            <input type="radio" value="Video" id="Type" name="Type" /> Video<br />
+                        </div>
+                        <br />
+                        <div><input type="file" name="files" /></div>
+                        <br />
+                        <div><input type="submit" value="Upload" /></div>
+                    }
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
